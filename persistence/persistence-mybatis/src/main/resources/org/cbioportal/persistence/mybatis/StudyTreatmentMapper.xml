@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.persistence.mybatis.StudyTreatmentMapper">
+    <select id="getSamplesForStudy" resultType="org.cbioportal.model.StudyTreatment">
+        SELECT
+            clinical_event.START_DATE as startDate,
+            clinical_event.STOP_DATE as endDate,
+            clinical_event_data.KEY as eventKey,
+            clinical_event_data.VALUE as eventValue,
+            clinical_event.PATIENT_ID
+        FROM
+            clinical_event
+            INNER JOIN clinical_event_data ON clinical_event.CLINICAL_EVENT_ID = clinical_event_data.CLINICAL_EVENT_ID
+            INNER JOIN patient ON clinical_event.PATIENT_ID = patient.INTERNAL_ID
+            INNER JOIN cancer_study ON patient.CANCER_STUDY_ID = cancer_study.CANCER_STUDY_ID
+        WHERE
+            cancer_study.CANCER_STUDY_IDENTIFIER = #{studyId}
+            AND clinical_event.EVENT_TYPE IN = "SPECIMEN"
+            AND clinical_event_data.KEY = "AGENT";
+    </select>
+
+    <select id="getTreatmentsForStudy" resultType="org.cbioportal.model.StudyTreatment">
+        SELECT
+        clinical_event.START_DATE as startDate,
+        clinical_event.STOP_DATE as endDate,
+        clinical_event_data.KEY as eventKey,
+        clinical_event_data.VALUE as eventValue,
+        clinical_event.PATIENT_ID
+
+        FROM
+        clinical_event
+        INNER JOIN clinical_event_data ON clinical_event.CLINICAL_EVENT_ID = clinical_event_data.CLINICAL_EVENT_ID
+        INNER JOIN patient ON clinical_event.PATIENT_ID = patient.INTERNAL_ID
+        INNER JOIN cancer_study ON patient.CANCER_STUDY_ID = cancer_study.CANCER_STUDY_ID
+        WHERE
+        cancer_study.CANCER_STUDY_IDENTIFIER = #{studyId}
+        AND clinical_event.EVENT_TYPE = "TREATMENT"
+        AND clinical_event_data.KEY = "SAMPLE_ID";
+    </select>
+</mapper>
