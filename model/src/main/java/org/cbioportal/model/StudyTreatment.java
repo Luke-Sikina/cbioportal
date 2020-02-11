@@ -82,3 +82,4 @@ public class StudyTreatment implements Serializable {
         this.eventValue = eventValue;
     }
 }
+

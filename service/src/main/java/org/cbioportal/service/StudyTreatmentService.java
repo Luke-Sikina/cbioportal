@@ -32,6 +32,7 @@
 package org.cbioportal.service;
 
 import org.cbioportal.model.StudyTreatment;
+import org.cbioportal.model.StudyTreatmentRow;
 import org.cbioportal.model.Treatment;
 import org.cbioportal.model.meta.BaseMeta;
 import org.cbioportal.service.exception.TreatmentNotFoundException;
@@ -39,5 +40,5 @@ import org.cbioportal.service.exception.TreatmentNotFoundException;
 import java.util.List;
 
 public interface StudyTreatmentService {
-    List<StudyTreatment> getTreatmentsForStudy(String studyId);
+    List<StudyTreatmentRow> getTreatmentsForStudy(String studyId);
 }

@@ -35,6 +35,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.cbioportal.model.StudyTreatment;
+import org.cbioportal.model.StudyTreatmentRow;
 import org.cbioportal.model.Treatment;
 import org.cbioportal.model.meta.BaseMeta;
 import org.cbioportal.service.StudyTreatmentService;
@@ -73,11 +74,11 @@ public class StudyTreatmentController {
 
     @RequestMapping(value = "/study-treatments/{studyId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Get all treatments for study")
-    public ResponseEntity<List<StudyTreatment>> getAllTreatments(
+    public ResponseEntity<List<StudyTreatmentRow>> getAllTreatments(
         @ApiParam(required = true)
         @PathVariable String studyId) {
 
-        List<StudyTreatment> treatments = studyTreatmentService.getTreatmentsForStudy(studyId);
+        List<StudyTreatmentRow> treatments = studyTreatmentService.getTreatmentsForStudy(studyId);
         return new ResponseEntity<>(treatments, HttpStatus.OK);
     }
 }

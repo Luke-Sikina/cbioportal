@@ -32,21 +32,17 @@
 package org.cbioportal.service.impl;
 
 import org.cbioportal.model.StudyTreatment;
-import org.cbioportal.model.Treatment;
-import org.cbioportal.model.meta.BaseMeta;
+import org.cbioportal.model.StudyTreatmentRow;
+import org.cbioportal.model.TemporalRelation;
 import org.cbioportal.persistence.StudyTreatmentRepository;
-import org.cbioportal.persistence.TreatmentRepository;
 import org.cbioportal.service.StudyTreatmentService;
-import org.cbioportal.service.TreatmentService;
-import org.cbioportal.service.exception.TreatmentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudyTreatmentServiceImpl implements StudyTreatmentService {
@@ -55,54 +51,40 @@ public class StudyTreatmentServiceImpl implements StudyTreatmentService {
 	private StudyTreatmentRepository studyTreatmentRepository;
 
     @Override
-    public List<StudyTreatment> getTreatmentsForStudy(String studyId) {
+    public List<StudyTreatmentRow> getTreatmentsForStudy(String studyId) {
         Map<String, List<StudyTreatment>> samplesPerPatient = studyTreatmentRepository.getSamplesForStudy(studyId).stream()
             .collect(Collectors.groupingBy(StudyTreatment::getPatient));
-        
-        
-        
-        
-        
 
-        return studyTreatmentRepository.getTreatmentsForStudy(studyId);
+        return studyTreatmentRepository.getTreatmentsForStudy(studyId).stream()
+            .flatMap((treatment -> Stream.of(
+                new StudyTreatmentRow(
+                    treatment.getEventValue(), treatment.getPatient(),
+                    TemporalRelation.Pre, treatment.getEndDate()
+                ),
+                new StudyTreatmentRow(
+                    treatment.getEventValue(), treatment.getPatient(),
+                    TemporalRelation.Post, treatment.getEndDate()
+                )
+            )))
+            .map(row -> processSamples(samplesPerPatient.get(row.patientId), row))
+            .collect(Collectors.toList());
     }
     
     private StudyTreatmentRow processSamples(
         List<StudyTreatment> samples,
-        StudyTreatmentRow pre,
-        StudyTreatmentRow post,
-        int treatmentEnd
+        StudyTreatmentRow row
     ) {
         for (StudyTreatment sample : samples) {
-            if (sample.getStartDate() < treatmentEnd) {
-                post.count++;
-            } else {
-                pre.count++;
+            if (sample.getStartDate() < row.end && row.preOrPost == TemporalRelation.Post) {
+                row.count++;
+            } else if (row.preOrPost == TemporalRelation.Pre){
+                row.count++;
             }
         }
+        return row;
     }
     
-    private final class StudyTreatmentRow {
-        public final String treatment;
-        public final TemporalRelation preOrPost;
-        public int count;
-        public float frequency;
 
-        public StudyTreatmentRow(String treatment, TemporalRelation preOrPost) {
-            this.treatment = treatment;
-            this.preOrPost = preOrPost;
-            this.count = 0;
-        }
-
-        @Override
-        public String toString() {
-            return preOrPost.name() + "-" + treatment; 
-        }
-    }
-    
-    private static enum TemporalRelation {
-        Pre, Post;
-    }
     
     
 }
