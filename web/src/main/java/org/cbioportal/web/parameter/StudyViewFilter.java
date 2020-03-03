@@ -21,6 +21,8 @@ public class StudyViewFilter implements Serializable {
     private List<String> studyIds;
     private List<ClinicalDataFilter> clinicalDataFilters;
     private List<GeneFilter> geneFilters;
+    private List<List<SampleTreatmentFilter>> sampleTreatmentFilters;
+    private List<List<PatientTreatmentFilter>> patientTreatmentFilters;
 	private Boolean withMutationData;
 	private Boolean withCNAData;
 	private Boolean withFusionData;
@@ -75,6 +77,22 @@ public class StudyViewFilter implements Serializable {
 
     public void setGeneFilters(List<GeneFilter> geneFilters) {
         this.geneFilters = geneFilters;
+    }
+
+    public List<List<SampleTreatmentFilter>> getSampleTreatmentFilters() {
+        return sampleTreatmentFilters;
+    }
+
+    public void setSampleTreatmentFilters(List<List<SampleTreatmentFilter>> sampleTreatmentFilters) {
+        this.sampleTreatmentFilters = sampleTreatmentFilters;
+    }
+
+    public List<List<PatientTreatmentFilter>> getPatientTreatmentFilters() {
+        return patientTreatmentFilters;
+    }
+
+    public void setPatientTreatmentFilters(List<List<PatientTreatmentFilter>> patientTreatmentFilters) {
+        this.patientTreatmentFilters = patientTreatmentFilters;
     }
 
     public Boolean getWithMutationData() {

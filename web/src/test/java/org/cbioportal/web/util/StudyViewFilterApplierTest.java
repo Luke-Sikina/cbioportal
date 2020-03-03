@@ -78,7 +78,7 @@ public class StudyViewFilterApplierTest {
         studyViewFilterApplier = new StudyViewFilterApplier(
             sampleService, mutationService, discreteCopyNumberService,
             molecularProfileService, genePanelService, clinicalDataService, clinicalDataEqualityFilterApplier,
-            clinicalDataIntervalFilterApplier, studyViewFilterUtil, geneService, clinicalAttributeService);
+            clinicalDataIntervalFilterApplier, studyViewFilterUtil, geneService, clinicalAttributeService, treatmentService, patientService);
     }
 
     @Test

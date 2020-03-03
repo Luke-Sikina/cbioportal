@@ -27,6 +27,7 @@ public class StudyViewFilterApplier {
     private StudyViewFilterUtil studyViewFilterUtil;
     private GeneService geneService;
     private ClinicalAttributeService clinicalAttributeService;
+    private TreatmentService treatmentService;
 
     @Autowired
     public StudyViewFilterApplier(SampleService sampleService,
@@ -39,7 +40,7 @@ public class StudyViewFilterApplier {
                                   ClinicalDataIntervalFilterApplier clinicalDataIntervalFilterApplier,
                                   StudyViewFilterUtil studyViewFilterUtil,
                                   GeneService geneService,
-                                  ClinicalAttributeService clinicalAttributeService) {
+                                  ClinicalAttributeService clinicalAttributeService, TreatmentService treatmentService) {
         this.sampleService = sampleService;
         this.mutationService = mutationService;
         this.discreteCopyNumberService = discreteCopyNumberService;
@@ -50,6 +51,7 @@ public class StudyViewFilterApplier {
         this.studyViewFilterUtil = studyViewFilterUtil;
         this.geneService = geneService;
         this.clinicalAttributeService = clinicalAttributeService;
+        this.treatmentService = treatmentService;
     }
 
     Function<Sample, SampleIdentifier> sampleToSampleIdentifier = new Function<Sample, SampleIdentifier>() {
@@ -73,7 +75,7 @@ public class StudyViewFilterApplier {
             return sampleIdentifiers;
         }
 
-        if (studyViewFilter != null && studyViewFilter.getSampleIdentifiers() != null && !studyViewFilter.getSampleIdentifiers().isEmpty()) {
+        if (studyViewFilter.getSampleIdentifiers() != null && !studyViewFilter.getSampleIdentifiers().isEmpty()) {
             List<String> studyIds = new ArrayList<>();
             List<String> sampleIds = new ArrayList<>();
             studyViewFilterUtil.extractStudyAndSampleIds(studyViewFilter.getSampleIdentifiers(), studyIds, sampleIds);
@@ -121,6 +123,14 @@ public class StudyViewFilterApplier {
         
         if (!CollectionUtils.isEmpty(clinicalDataIntervalFilters)) {
             sampleIdentifiers = intervalFilterClinicalData(sampleIdentifiers, clinicalDataIntervalFilters, negateFilters);
+        }
+        
+        if (!CollectionUtils.isEmpty(studyViewFilter.getPatientTreatmentFilters())) {
+            sampleIdentifiers = patientTreatmentFilterSamples(
+                    sampleIdentifiers,
+                    studyViewFilter.getPatientTreatmentFilters(),
+                    negateFilters
+            );
         }
 
         if (!CollectionUtils.isEmpty(studyViewFilter.getGeneFilters())) {
@@ -182,6 +192,46 @@ public class StudyViewFilterApplier {
         }
 
         return sampleIdentifiers;
+    }
+
+    private List<SampleIdentifier> patientTreatmentFilterSamples(
+            List<SampleIdentifier> sampleIdentifiers,
+            List<List<PatientTreatmentFilter>> patientTreatmentFilters,
+            Boolean negateFilters
+    ) {
+        List<String> studyIds = new ArrayList<>();
+        List<String> sampleIds = new ArrayList<>();
+        studyViewFilterUtil.extractStudyAndSampleIds(sampleIdentifiers, studyIds, sampleIds);
+        
+        Map<String, List<String>> patientTreatments = treatmentService.getAllTreatmentsForEachPatient(sampleIds, studyIds);
+        List<String> patientIds = new ArrayList<>();
+        for (Map.Entry<String, List<String>> patient : patientTreatments.entrySet()) {
+            if (filtersMatchTreatments(patientTreatmentFilters, patient.getValue()) ^ negateFilters) {
+                patientIds.add(patient.getKey());
+            }
+        }
+
+        Set<SampleIdentifier> filteredIdentifiers = sampleService.getSamplesOfPatientsInMultipleStudies(studyIds, patientIds, Projection.SUMMARY.name())
+            .stream()
+            .map(s -> {
+                SampleIdentifier si = new SampleIdentifier();
+                si.setSampleId(s.getStableId());
+                si.setStudyId(s.getCancerStudyIdentifier());
+                return si;
+            })
+            .collect(Collectors.toSet());
+        
+        return sampleIdentifiers.stream()
+            .filter(filteredIdentifiers::contains)
+            .collect(Collectors.toList());
+    }
+    
+    private boolean filtersMatchTreatments(List<List<PatientTreatmentFilter>> filters, List<String> treatments) {
+        return filters.stream()
+            .allMatch(f -> { //outer list is anded
+                //inner list is ored
+                return f.stream().anyMatch(innerF -> innerF.filter(treatments));
+            });
     }
 
     private List<SampleIdentifier> intervalFilterClinicalData(List<SampleIdentifier> sampleIdentifiers,

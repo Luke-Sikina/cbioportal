@@ -36,7 +36,17 @@ public class TreatmentServiceImpl implements TreatmentService {
             })
             .filter(row -> row.getCount() != 0));
     }
-    
+
+    @Override
+    public Map<String, List<String>> getAllTreatmentsForEachPatient(List<String> samples, List<String> studies) {
+        HashMap<String, List<String>> treatmentsPerPatient = new HashMap<>();
+
+        for (Treatment treatment : treatmentRepository.getAllTreatments(samples, studies)) {
+            
+        }
+        return null;
+    }
+
     private List<TreatmentRow> flattenAndSortRows(Stream<TreatmentRow> rows) {
         Map<String, TreatmentRow> uniqueRows = new HashMap<>();
         rows.forEach(rowToAdd -> {
