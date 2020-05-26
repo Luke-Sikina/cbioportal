@@ -121,9 +121,10 @@ public class SAMLUserDetailsServiceImpl implements SAMLUserDetailsService
           } else if (user == null) { // new user
               log.debug("loadUserBySAML(), user authorities is null, userid: " + userId + ". Depending on property always_show_study_group, "
                   + "he could still have default access (to PUBLIC studies)");
-              toReturn = new PortalUserDetails(userId, getInitialEmptyAuthoritiesList());
-              toReturn.setEmail(userId);
-              toReturn.setName(userId);
+              //toReturn = new PortalUserDetails(userId, getInitialEmptyAuthoritiesList());
+              //toReturn.setEmail(userId);
+              //toReturn.setName(userId);
+              throw new UsernameNotFoundException("Error: Please register to cBioPortal to access this resource");
         	} else {
         		//user WAS found in DB but has been actively disabled:
         		throw new UsernameNotFoundException("Error: Your user access to cBioPortal has been disabled");

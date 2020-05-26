@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.persistence.mybatis.ImportMapper">
+
+    <select id="getStudy" resultType="org.cbioportal.model.ImportStudy">
+        SELECT
+        STUDY_ID as "studyId",
+        STUDY_PATH as "studyPath",
+        NAME as "name",
+        IMPORTED as "imported",
+        VALIDATED as "validated",
+        IMPORT_DATE as "importDate",
+        VALIDATION_DATE as "validationDate",
+        IMPORT_RUNNING as "importRunning",
+        VALIDATION_RUNNING as "validationRunning"
+        FROM
+            import_study
+        WHERE
+            STUDY_ID = #{study};
+    </select>
+
+    <select id="getUsersForStudy" resultType="java.lang.String">
+        SELECT
+            users.NAME
+        FROM
+            authorities
+            INNER JOIN users ON authorities.EMAIL = users.EMAIL
+        WHERE
+            AUTHORITY = #{study};
+    </select>
+
+    <select id="getAllLogsForStudy" resultType="org.cbioportal.model.ImportLog">
+        SELECT
+            ID as "id",
+            TEXT as "text",
+            RAW_TEXT as "rawText",
+            IS_TEST_RUN as "testRun",
+            LOG_TYPE as "logType",
+            STUDY_ID as "studyId",
+            START_DATE as "startDate",
+            PASSED as "passed",
+            REQUESTER as "requester"
+        FROM
+            import_log
+        WHERE
+            STUDY_ID = #{study}
+            AND LOG_TYPE = #{logType}
+        ORDER BY ID DESC;
+    </select>
+
+    <select id="getAllStudies" resultType="org.cbioportal.model.ImportStudy">
+        SELECT
+            STUDY_ID as "studyId",
+            NAME as "name",
+            IMPORTED as "imported",
+            VALIDATED as "validated",
+            IMPORT_DATE as "importDate",
+            VALIDATION_DATE as "validationDate",
+            IMPORT_RUNNING as "importRunning",
+            VALIDATION_RUNNING as "validationRunning"
+        FROM
+            import_study;
+    </select>
+
+    <select id="getLog" resultType="org.cbioportal.model.ImportLog">
+        SELECT
+            ID as "id",
+            TEXT as "text",
+            RAW_TEXT as "rawText",
+            IS_TEST_RUN as "testRun",
+            LOG_TYPE as "logType",
+            STUDY_ID as "studyId",
+            START_DATE as "startDate",
+            PASSED as "passed",
+            REQUESTER as "requester"
+        FROM
+            import_log
+        WHERE
+            ID = #{id}
+            AND STUDY_ID = #{study}
+            AND LOG_TYPE = #{logType};
+    </select>
+    
+    <update id="updateStudyAsImporting">
+        UPDATE
+            import_study
+        SET
+            IMPORT_RUNNING = true
+        WHERE
+            STUDY_ID = #{studyId}
+    </update>
+
+    <update id="updateStudyAsValidating">
+        UPDATE
+            import_study
+        SET
+            VALIDATION_RUNNING = true
+        WHERE
+            STUDY_ID = #{studyId}
+    </update>
+
+    <insert id="addImportLog" parameterType="org.cbioportal.model.ImportLog">
+        INSERT INTO
+            import_log
+            (IS_TEST_RUN, STUDY_ID, TEXT, RAW_TEXT, LOG_TYPE, START_DATE, REQUESTER)
+        VALUES
+            (true, #{studyId}, #{text}, #{rawText}, #{logType}, #{startDate}, #{requester});
+    </insert>
+    
+    <select id="getLastId" resultType="java.lang.Integer">
+        SELECT LAST_INSERT_ID();
+    </select>
+</mapper>
