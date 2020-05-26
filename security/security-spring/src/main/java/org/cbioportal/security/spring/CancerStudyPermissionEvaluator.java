@@ -185,6 +185,16 @@ class CancerStudyPermissionEvaluator implements PermissionEvaluator {
     }
 
     private CancerStudy getRelevantCancerStudyFromTarget(Object targetDomainObject) {
+        if (targetDomainObject instanceof ImportStudy) {
+            ImportStudy importStudy = (ImportStudy)targetDomainObject;
+            return cacheMapUtil.getCancerStudyMap().get(importStudy.getStudyId());
+        }
+        
+        if (targetDomainObject instanceof ImportLog) {
+            ImportLog importLog = (ImportLog) targetDomainObject;
+            return cacheMapUtil.getCancerStudyMap().get(importLog.getStudyId());
+        }
+        
         if (targetDomainObject instanceof CancerStudy) {
             return (CancerStudy) targetDomainObject;
         } else if (targetDomainObject instanceof MolecularProfile) {
@@ -220,7 +230,7 @@ class CancerStudyPermissionEvaluator implements PermissionEvaluator {
      * Helper function to determine if given user has access to given cancer study.
      *
      * @param cancerStudy cancer study to check for
-     * @param user Spring Authentication of the logged-in user.
+     * @param authentication Spring Authentication of the logged-in user.
      * @return boolean
      */
     private boolean hasAccessToCancerStudy(Authentication authentication, CancerStudy cancerStudy) {
