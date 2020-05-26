@@ -917,5 +917,32 @@ CREATE TABLE `resource_study` (
   FOREIGN KEY (`INTERNAL_ID`) REFERENCES `cancer_study` (`CANCER_STUDY_ID`) ON DELETE CASCADE
 );
 
+
+CREATE TABLE `import_study` (
+  `STUDY_ID` varchar(255),
+  `STUDY_PATH` varchar(1024),
+  `NAME` varchar(255),
+  `IMPORTED` boolean,
+  `VALIDATED` boolean,
+  `IMPORT_DATE` datetime,
+  `VALIDATION_DATE` datetime,
+  `IMPORT_RUNNING` boolean,
+  `VALIDATION_RUNNING` boolean,
+  PRIMARY KEY (`STUDY_ID`)
+);
+
+CREATE TABLE `import_log` (
+    `ID` int(10)  NOT NULL auto_increment,
+    `TEXT` mediumtext,
+    `RAW_TEXT` mediumtext,
+    `IS_TEST_RUN` boolean,
+    `LOG_TYPE` varchar(10),
+    `STUDY_ID` varchar(255),
+    `START_DATE` datetime,
+    `REQUESTER` varchar(128),
+    `PASSED` varchar(10) default "pending",
+    PRIMARY KEY (`ID`)
+);
+
 -- THIS MUST BE KEPT IN SYNC WITH db.version PROPERTY IN pom.xml
 INSERT INTO info VALUES ('2.12.7', NULL);
