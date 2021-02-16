@@ -1,0 +1,30 @@
+<md:EntityDescriptor ID="PHSIdptoCBIOSP" entityID="https://federation.partners.org/CBIO" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:query="urn:oasis:names:tc:SAML:metadata:ext:query" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#"><md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:X509Data>
+<ds:X509Certificate>
+MIIFPDCCBCSgAwIBAgIQBzZM8cFcD3qVgqPQSEOX4jANBgkqhkiG9w0BAQsFADBlMQswCQYDVQQG
+EwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMSQw
+IgYDVQQDExtEaWdpQ2VydCBTSEEyIEFzc3VyZWQgSUQgQ0EwHhcNMTYwMzI0MDAwMDAwWhcNMTkw
+MzI0MTIwMDAwWjCBiTELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAk1BMQ8wDQYDVQQHEwZCb3N0b24x
+KTAnBgNVBAoTIFBhcnRuZXJzIEhlYWx0aENhcmUgU3lzdGVtLCBJbmMuMQswCQYDVQQLEwJJUzEk
+MCIGA1UEAxMbUGFydG5lcnMgRmVkZXJhdGVkIElkZW50aXR5MIIBIjANBgkqhkiG9w0BAQEFAAOC
+AQ8AMIIBCgKCAQEAvAHSCNWbuwI6EjRUe00Wg3wS1IQfYiwSttiHA4l0jZy7CYFNp3dZzzsmBp3a
+LP4aTT+IG6/k+UQVYvKAtyKMVl0OEUYOCGKxe5UB24RreXB2jCccXPjUas3R7AaS/Jn13fN8nqrj
+wxCY1CPyQYL8UV8nrmu6KJ8O0/CPl6l8moZsRdTRCXPEHtsi7l0J46sRf3f0B1EMtG10YgOXUiyf
+IrLoy9TSRz1hojjEPsa/nvK9W29FrOV1vxXfuxPMoFDWAsDEbycSCN4DDj6Ok6bF7L84J3M0wSDf
+PVm7CIn5xYChFJqmSo6d2Vkt1q5OGDQ6b0POsdyvLHmT430dJP2rUwIDAQABo4IBwTCCAb0wHwYD
+VR0jBBgwFoAU5wIjgABP2Ne8lAvZP3Q5STI8inkwHQYDVR0OBBYEFGPW7sQqaQnbiZcVi/5SIP3g
+A+htMAwGA1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgWgMBMGA1UdJQQMMAoGCCsGAQUFBwMCMEIG
+A1UdIAQ7MDkwNwYJYIZIAYb9bAYBMCowKAYIKwYBBQUHAgEWHGh0dHBzOi8vd3d3LmRpZ2ljZXJ0
+LmNvbS9DUFMwgYgGA1UdHwSBgDB+MD2gO6A5hjdodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGln
+aUNlcnRTSEEyQXNzdXJlZElEQ0EtZzIuY3JsMD2gO6A5hjdodHRwOi8vY3JsNC5kaWdpY2VydC5j
+b20vRGlnaUNlcnRTSEEyQXNzdXJlZElEQ0EtZzIuY3JsMHkGCCsGAQUFBwEBBG0wazAkBggrBgEF
+BQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMGCCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0
+cy5kaWdpY2VydC5jb20vRGlnaUNlcnRTSEEyQXNzdXJlZElEQ0EuY3J0MA0GCSqGSIb3DQEBCwUA
+A4IBAQAM3nnbr2XpGC3OAJXMPZBOywbEiS0vJJ4mnR1eScnttihZb/iLLncAiMNVT0vXnr3STFgj
+hz6YYPyKFbLXCU3rFmtRYL3dItpa4cUFxsagtMa0J0+bmnp0BKUzzIetH1qQ4zTpip4hYY3QvhsE
+9AZAWoBbvd1kZrLYHNvD2udx0djuCwZGSBhQ3+KJ2hU0MnrSGdzChEclphvqNLtDEz14K9euguUz
+2h3UJtBdyN2ElzTDQS4bEWRcpvrhDacfHuqMDJdSvazXW3LalLLRDCgFdbu3LPrDOpEe0473leYx
+JcMHD3MpCfhN1z+oqzpiBpPMKT1tof7SZWAVgrK/KxDc
+</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo></md:KeyDescriptor><md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://federation.partners.org/soap/services/SAMLMessageProcessor/AP" index="0" isDefault="true"></md:ArtifactResolutionService><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://federation.partners.org/slo/request/AP" ResponseLocation="https://federation.partners.org/slo/response/AP"></md:SingleLogoutService><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://federation.partners.org/slo/request/AP" ResponseLocation="https://federation.partners.org/slo/response/AP"></md:SingleLogoutService><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://federation.partners.org/slo/request/AP" ResponseLocation="https://federation.partners.org/slo/response/AP"></md:SingleLogoutService><md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://federation.partners.org/soap/services/SAMLMessageProcessor/AP"></md:SingleLogoutService><md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://federation.partners.org/nameid/request/AP" ResponseLocation="https://federation.partners.org/nameid/response/AP"></md:ManageNameIDService><md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://federation.partners.org/nameid/request/AP" ResponseLocation="https://federation.partners.org/nameid/response/AP"></md:ManageNameIDService><md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://federation.partners.org/nameid/request/AP" ResponseLocation="https://federation.partners.org/nameid/response/AP"></md:ManageNameIDService><md:ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://federation.partners.org/soap/services/SAMLMessageProcessor/AP"></md:ManageNameIDService><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://federation.partners.org/sso/SSO"></md:SingleSignOnService><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://federation.partners.org/sso/SSO"></md:SingleSignOnService><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://federation.partners.org/soap/services/SAMLMessageProcessor/AP"></md:SingleSignOnService><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://federation.partners.org/sso/SSO"></md:SingleSignOnService></md:IDPSSODescriptor><md:Organization><md:OrganizationName xml:lang="en-us">Partners HealthCare</md:OrganizationName><md:OrganizationDisplayName xml:lang="en-us">Partners</md:OrganizationDisplayName><md:OrganizationURL xml:lang="en-us">http://www.partners.org</md:OrganizationURL></md:Organization><md:ContactPerson contactType="technical"><md:Company></md:Company><md:GivenName></md:GivenName><md:SurName></md:SurName></md:ContactPerson></md:EntityDescriptor>
