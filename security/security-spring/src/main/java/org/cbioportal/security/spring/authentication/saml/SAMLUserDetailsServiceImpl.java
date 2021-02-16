@@ -78,19 +78,8 @@ public class SAMLUserDetailsServiceImpl implements SAMLUserDetailsService
     {
 		PortalUserDetails toReturn = null;
 
-		String userId = null;
 		// get userid and name: iterate over attributes searching for "mail" and "displayName":
-        for (Attribute cAttribute : credential.getAttributes()) {
-        	log.debug("loadUserBySAML(), parsing attribute - " + cAttribute.toString());
-        	log.debug("loadUserBySAML(), parsing attribute - " + cAttribute.getName());
-        	log.debug("loadUserBySAML(), parsing attribute - " + credential.getAttributeAsString(cAttribute.getName()));
-        	if (userId == null && cAttribute.getName().equals(samlIdpMetadataEmailAttributeName))
-        	{
-        		userId = credential.getAttributeAsString(cAttribute.getName());
-        		//userid = credential.getNameID().getValue(); needed to support OneLogin...?? Although with OneLogin we haven't gotten this far yet...
-        	}
-        }
-
+String userId = credential.getNameID().getValue();
 		//check if this user exists in our DB
 		try {
 			//validate parsing:

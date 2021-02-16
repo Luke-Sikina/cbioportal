@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="http://www.okta.com/exkl2sxahJIKKpys2296"><md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>MIIDtDCCApygAwIBAgIGAV2md6iQMA0GCSqGSIb3DQEBCwUAMIGaMQswCQYDVQQGEwJVUzETMBEG
+A1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEU
+MBIGA1UECwwLU1NPUHJvdmlkZXIxGzAZBgNVBAMMEnBhcnRuZXJzaGVhbHRoY2FyZTEcMBoGCSqG
+SIb3DQEJARYNaW5mb0Bva3RhLmNvbTAeFw0xNzA4MDMwNDU5NDZaFw0yNzA4MDMwNTAwNDZaMIGa
+MQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNj
+bzENMAsGA1UECgwET2t0YTEUMBIGA1UECwwLU1NPUHJvdmlkZXIxGzAZBgNVBAMMEnBhcnRuZXJz
+aGVhbHRoY2FyZTEcMBoGCSqGSIb3DQEJARYNaW5mb0Bva3RhLmNvbTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAM9Hvgc93mil1k3/rs/58Gb0zdI51exp4/XQ4NRlDvHxAAezvyzX3CLv
+HgFnvwzvZPZIsUnkUIL7RkkBkfnFUTnZPwTJSrDOstbBdFDccWu1/wh4GK4q8QaTcWEGQeeeDxx2
+sssf+hoQxlZsKH5gpt1SQHgbIWgmH1F4mD+j0SXAqYr+3QnlKyw06wOluE3NcVHwAdRIEpRwVNc4
+10PHMU4iF/VlcVS2KSiMS6g0cRlTFbSximnfAzOfhYHmnTn6ValP5oqpLKGeFpWxQsREQMCLfBSS
+YW+0JRBydC3j3EyevgdRV2GCTs0+8WtQ6u4NkuzbXwVAwpeSBXbpVrioajcCAwEAATANBgkqhkiG
+9w0BAQsFAAOCAQEAvIGnDxQSD26sW9Tvif6PuYWjkx65N43weiPwZRb09hknL+WkSHZVDMMoCP/K
+Q6QVk1P3a6yUs5sISkmOVVnYxtzmHDrBTybQVb2iBfV9IQvdoCecxDyWFm979cqs/nlH8wALShax
+45zaWnbnD+x8BiTnzDYk7RGXG1oa3idhkk/aopv9p1LE71FG5OQRGdblkcXui+Ge52I6j8d74DlG
+eb+Hh/afDGdvEyyten+Pg2byPYraMsExT77CMhgAcyxvfiB4aD/YG0kGB2ssTOkxzTSD50Z7cOtu
+TQ/vM5DXfk9EuSlPttOUafsnGHEhVcYp3P4UrCp1VdgLvmGTTqkmYQ==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://partnershealthcare.okta.com/app/partnershealthcare_cbioportal_1/exkl2sxahJIKKpys2296/sso/saml"/><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://partnershealthcare.okta.com/app/partnershealthcare_cbioportal_1/exkl2sxahJIKKpys2296/sso/saml"/></md:IDPSSODescriptor></md:EntityDescriptor>

@@ -8,7 +8,7 @@
 <%
     String url = request.getRequestURL().toString();
     String baseUrl = url.substring(0, url.length() - request.getRequestURI().length()) + request.getContextPath();
-    baseUrl = baseUrl.replace("https://", "").replace("http://", "");
+    baseUrl = baseUrl.replace("https://", "").replace("http://", "").replace(".edu", ".edu:8443");
     response.setHeader("Referrer-Policy", "origin-when-cross-origin");
     
     // to support posted query data (when data would exceed URL length)
