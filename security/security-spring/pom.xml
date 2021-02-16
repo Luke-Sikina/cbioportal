@@ -40,11 +40,23 @@
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-acl</artifactId>
         <version>${spring.security.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-jwt</artifactId>
         <version>1.0.11.RELEASE</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
         <groupId>org.springframework.security.oauth</groupId>
@@ -55,21 +67,45 @@
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-config</artifactId>
         <version>${spring.security.version}</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-core</artifactId>
         <version>${spring.security.version}</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-ldap</artifactId>
         <version>${spring.security.version}</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-openid</artifactId>
         <version>${spring.security.version}</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
         <groupId>org.springframework.security.extensions</groupId>
@@ -80,11 +116,23 @@
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-taglibs</artifactId>
         <version>${spring.security.version}</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-web</artifactId>
         <version>${spring.security.version}</version>
+          <exclusions>
+              <exclusion>
+                  <groupId>org.bouncycastle</groupId>
+                  <artifactId>bcprov-jdk15on</artifactId>
+              </exclusion>
+          </exclusions>
       </dependency>
       <!-- Spring Social -->
       <dependency>

@@ -91,6 +91,7 @@
                   <artifactId>webapp-runner</artifactId>
                   <version>8.5.51.0</version>
                   <destFileName>webapp-runner.jar</destFileName>
+                  <excludes>org.bouncycastle:*</excludes>
                 </artifactItem>
               </artifactItems>
             </configuration>
