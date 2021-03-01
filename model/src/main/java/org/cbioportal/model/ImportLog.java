@@ -9,6 +9,7 @@ public class ImportLog {
     private String text;
     private String rawText;
     private String logType;
+    private String backupPath;
     private Date startDate;
     private String requester;
     private String passed;
@@ -83,5 +84,13 @@ public class ImportLog {
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
+    }
+
+    public String getBackupPath() {
+        return backupPath;
+    }
+
+    public void setBackupPath(String backupPath) {
+        this.backupPath = backupPath;
     }
 }
