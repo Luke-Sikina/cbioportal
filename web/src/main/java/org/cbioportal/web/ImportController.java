@@ -106,7 +106,7 @@ public class ImportController {
         @PathVariable("studyId") String studyId,
         Authentication authentication
     ) {
-        HttpGet request = new HttpGet("importer:8080/studies/" + studyId);
+        HttpGet request = new HttpGet("http://importer:8080/studies/" + studyId);
         setUserIdHeader(authentication, request);
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
