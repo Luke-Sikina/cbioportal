@@ -51,13 +51,13 @@ public class ImportController {
     @RequestMapping(value = "/logs/{logType}/{studyId}/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Get the specified log file")
     public ResponseEntity<ImportLog> getLog(
-        @PathVariable("logType") String logType, // this can be deleted now. id is unique
+        @PathVariable("logType") String logType,
         @PathVariable("studyId") String studyId,
         @PathVariable("id") String id,
         Authentication authentication
     ) {
         String userId = getUserId(authentication);
-        HttpGet request = new HttpGet("importer:8080/logs/" + studyId + "/" + id + "/" + userId);
+        HttpGet request = new HttpGet("importer:8080/logs/" + logType + "/" + studyId + "/" + id + "/" + userId);
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpStatus status = HttpStatus.resolve(response.getStatusLine().getStatusCode());
