@@ -46,8 +46,8 @@ public class ImportController {
         @PathVariable("id") String id,
         Authentication authentication
     ) {
-        String userId = getUserId(authentication);
-        HttpGet request = new HttpGet("importer:8080/logs/" + logType + "/" + studyId + "/" + id + "/" + userId);
+        HttpGet request = new HttpGet("importer:8080/log/" + studyId + "/" + id);
+        setUserIdHeader(authentication, request);
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpStatus status = HttpStatus.resolve(response.getStatusLine().getStatusCode());
@@ -67,8 +67,9 @@ public class ImportController {
         @PathVariable("studyId") String studyId,
         Authentication authentication
     ) {
-        String userId = getUserId(authentication);
-        HttpGet request = new HttpGet("importer:8080/logs/" + studyId + "/" + logType + "/" + userId);
+        HttpGet request = new HttpGet("importer:8080/logs/" + studyId + "/" + logType);
+        setUserIdHeader(authentication, request);
+
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpStatus status = HttpStatus.resolve(response.getStatusLine().getStatusCode());
@@ -85,8 +86,8 @@ public class ImportController {
     @RequestMapping(value = "/importer/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Get a list of all studies in the importer")
     public ResponseEntity<List<ImportStudy>> getAllImporterStudies(Authentication authentication) {
-        String userId = getUserId(authentication);
-        HttpGet request = new HttpGet("importer:8080/studies/" + userId);
+        HttpGet request = new HttpGet("importer:8080/studies");
+        setUserIdHeader(authentication, request);
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpStatus status = HttpStatus.resolve(response.getStatusLine().getStatusCode());
@@ -105,8 +106,8 @@ public class ImportController {
         @PathVariable("studyId") String studyId,
         Authentication authentication
     ) {
-        String userId = getUserId(authentication);
-        HttpGet request = new HttpGet("importer:8080/studies/" + studyId + "/" + userId);
+        HttpGet request = new HttpGet("importer:8080/studies/" + studyId);
+        setUserIdHeader(authentication, request);
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpStatus status = HttpStatus.resolve(response.getStatusLine().getStatusCode());
@@ -126,8 +127,8 @@ public class ImportController {
         Authentication authentication
     ) throws IOException, InterruptedException {
         String username = getUserName(authentication);
-        String userId = getUserId(authentication);
-        HttpGet request = new HttpGet("importer:8080/importer/" + studyId + "/" + username + "/" + userId + "/import");
+        HttpGet request = new HttpGet("importer:8080/importer/" + studyId + "/" + username + "/import");
+        setUserIdHeader(authentication, request);
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpStatus status = HttpStatus.resolve(response.getStatusLine().getStatusCode());
@@ -145,8 +146,9 @@ public class ImportController {
         Authentication authentication
     ) throws IOException, InterruptedException {
         String username = getUserName(authentication);
-        String userId = getUserId(authentication);
-        HttpGet request = new HttpGet("importer:8080/importer/" + studyId + "/" + username + "/" + userId + "/validate");
+        HttpGet request = new HttpGet("importer:8080/importer/" + studyId + "/" + username + "/validate");
+        setUserIdHeader(authentication, request);
+
 
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             HttpStatus status = HttpStatus.resolve(response.getStatusLine().getStatusCode());
@@ -163,7 +165,8 @@ public class ImportController {
         return user == null ? username : user.getName().replace(" ", "_");
     }
     
-    private String getUserId(Authentication authentication) {
-        return authentication == null ? "no_auth" : authentication.getName();
+    private void setUserIdHeader(Authentication authentication, HttpGet request) {
+        String id =  authentication == null ? "no_auth" : authentication.getName();
+        request.setHeader("requesterId", id);
     }
 }
