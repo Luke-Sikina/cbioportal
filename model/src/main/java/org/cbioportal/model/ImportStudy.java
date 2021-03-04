@@ -7,6 +7,7 @@ public class ImportStudy {
     private String studyId;
     private String name;
     private String studyPath;
+    private String backupPath;
     private boolean imported;
     private boolean validated;
     private Date importDate;
@@ -111,5 +112,13 @@ public class ImportStudy {
 
     public void setUsers(List<String> users) {
         this.users = users;
+    }
+
+    public String getBackupPath() {
+        return backupPath;
+    }
+
+    public void setBackupPath(String backupPath) {
+        this.backupPath = backupPath;
     }
 }
