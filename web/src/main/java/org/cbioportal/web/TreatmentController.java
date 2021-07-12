@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.cbioportal.model.PatientTreatmentRow;
 import org.cbioportal.model.SampleTreatmentRow;
+import org.cbioportal.service.StudyViewFilterIdentifierCache;
 import org.cbioportal.service.TreatmentService;
 import org.cbioportal.web.config.annotation.PublicApi;
 import org.cbioportal.web.parameter.*;
@@ -38,6 +39,9 @@ public class TreatmentController {
     
     @Autowired
     private StudyViewFilterApplier studyViewFilterApplier;
+    
+    @Autowired
+    private StudyViewFilterIdentifierCache cache;
 
     @RequestMapping(value = "/treatments/sequence", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation("Get all patdsfsfasdf")

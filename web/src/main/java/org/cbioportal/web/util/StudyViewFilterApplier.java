@@ -5,6 +5,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.cbioportal.model.*;
@@ -72,6 +75,9 @@ public class StudyViewFilterApplier {
     private SampleTreatmentFilterApplier sampleTreatmentFilterApplier;
     @Autowired
     private MolecularProfileUtil molecularProfileUtil;
+    
+    @Autowired
+    private StudyViewFilterIdentifierCache studyViewFilterIdentifierCache;
 
     Function<Sample, SampleIdentifier> sampleToSampleIdentifier = new Function<Sample, SampleIdentifier>() {
 
@@ -289,7 +295,27 @@ public class StudyViewFilterApplier {
             );
         }
 
+        persistStudyViewFilterMapping(studyViewFilter, sampleIdentifiers);
+
         return sampleIdentifiers;
+    }
+    
+    private void persistStudyViewFilterMapping(StudyViewFilter filter, List<SampleIdentifier> identifiers) {
+        String s;
+        try {
+            s = new ObjectMapper().writeValueAsString(filter);
+        } catch (JsonProcessingException ignored) {
+            return;
+        }
+
+        List<Integer> ids = sampleService.fetchSamples(
+            identifiers.stream().map(SampleIdentifier::getStudyId).collect(Collectors.toList()),
+            identifiers.stream().map(SampleIdentifier::getSampleId).collect(Collectors.toList()),
+            Projection.SUMMARY.name()
+        ).stream().map(Sample::getInternalId).collect(Collectors.toList());
+        
+        studyViewFilterIdentifierCache.persist(DigestUtils.md5(s), ids);
+        
     }
 
     private List<SampleIdentifier> intervalFilterClinicalData(List<SampleIdentifier> sampleIdentifiers,

@@ -24,12 +24,22 @@ public class TreatmentMyBatisRepository implements TreatmentRepository {
         return treatmentMapper.getEventTimeline(eventValues, studyIds);
     }
 
+    @Override
+    public List<GroupedClinicalEvent> getEventTimeline(List<String> eventValues, byte[] hash) {
+        return null;
+    }
+
 
     @Override
     public Map<String, List<Treatment>> getTreatmentsByPatientId(List<String> sampleIds, List<String> studyIds) {
         return treatmentMapper.getAllTreatments(sampleIds, studyIds)
             .stream()
             .collect(groupingBy(Treatment::getPatientId));
+    }
+
+    @Override
+    public Map<String, List<Treatment>> getTreatmentsByPatientId(byte[] hash) {
+        return null;
     }
 
     @Override
@@ -42,6 +52,11 @@ public class TreatmentMyBatisRepository implements TreatmentRepository {
             .collect(groupingBy(ClinicalEventSample::getPatientId));
     }
 
+    @Override
+    public Map<String, List<ClinicalEventSample>> getSamplesByPatientId(byte[] hash) {
+        return null;
+    }
+
     public Map<String, List<ClinicalEventSample>> getShallowSamplesByPatientId(List<String> sampleIds, List<String> studyIds) {
         return treatmentMapper.getAllShallowSamples(sampleIds, studyIds)
             .stream()
@@ -50,8 +65,18 @@ public class TreatmentMyBatisRepository implements TreatmentRepository {
     }
 
     @Override
+    public Map<String, List<ClinicalEventSample>> getShallowSamplesByPatientId(byte[] hash) {
+        return null;
+    }
+
+    @Override
     public Set<String> getAllUniqueTreatments(List<String> sampleIds, List<String> studyIds) {
         return treatmentMapper.getAllUniqueTreatments(sampleIds, studyIds);
+    }
+
+    @Override
+    public Set<String> getAllUniqueTreatments(byte[] hash) {
+        return null;
     }
 
     @Override

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cbioportal.persistence.mybatis.StudyViewFilterIdentifierCacheMapper">
+
+    <insert id="persist">
+        INSERT INTO study_view_filter_cache (FILTER_HASH, SAMPLE_INTERNAL_ID)
+        VALUES
+            <foreach item="sampleId" collection="sampleIds" open="" separator=",\n" close="">
+                (#{hash}, #{sampleId})
+            </foreach>
+    </insert>
+</mapper>

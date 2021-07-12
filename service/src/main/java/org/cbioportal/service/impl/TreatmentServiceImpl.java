@@ -28,7 +28,12 @@ public class TreatmentServiceImpl implements TreatmentService {
             .distinct()
             .collect(Collectors.toList());
     }
-    
+
+    @Override
+    public List<String> getEventTimeline(List<String> eventValues, byte[] hash) {
+        return null;
+    }
+
     private boolean eventsInOrder(List<String> desiredOrder, Collection<GroupedClinicalEvent> events) {
         int stop = Integer.MIN_VALUE;
         for (String eventName : desiredOrder) {
@@ -56,7 +61,12 @@ public class TreatmentServiceImpl implements TreatmentService {
             .filter(row -> row.getCount() != 0);
         return flattenRows(rows);
     }
-    
+
+    @Override
+    public List<SampleTreatmentRow> getAllSampleTreatmentRows(List<String> samples, byte[] hash) {
+        return null;
+    }
+
     private Stream<SampleTreatmentRow> getSampleTreatmentRowsForPatient(
             String patientId,
             Map<String, List<ClinicalEventSample>> samplesByPatient,
@@ -164,6 +174,11 @@ public class TreatmentServiceImpl implements TreatmentService {
         return treatments.stream()
             .map(t -> createPatientTreatmentRowForTreatment(t, treatmentsByPatient, samplesByPatient))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PatientTreatmentRow> getAllPatientTreatmentRows(List<String> samples, byte[] hash) {
+        return null;
     }
 
     private PatientTreatmentRow createPatientTreatmentRowForTreatment(

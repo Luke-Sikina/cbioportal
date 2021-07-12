@@ -7,8 +7,11 @@ import org.cbioportal.model.SampleTreatmentRow;
 
 public interface TreatmentService {
     public List<String> getEventTimeline(List<String> eventValues, List<String> studyIds);
+    public List<String> getEventTimeline(List<String> eventValues, byte[] hash);
     public List<SampleTreatmentRow> getAllSampleTreatmentRows(List<String> samples, List<String> studies);
+    public List<SampleTreatmentRow> getAllSampleTreatmentRows(List<String> samples, byte[] hash);
     public List<PatientTreatmentRow> getAllPatientTreatmentRows(List<String> samples, List<String> studies);
+    public List<PatientTreatmentRow> getAllPatientTreatmentRows(List<String> samples, byte[] hash);
     public Boolean containsTreatmentData(List<String> studies);
     public Boolean containsSampleTreatmentData(List<String> studyIds);
 }
